@@ -23,6 +23,22 @@ module TypeScriptGreeter {
             // TODO: Cordova has been loaded. Perform any initialization that requires Cordova here.
             var element = document.getElementById('geo');
             element.addEventListener('click', onClick.bind(this), false);
+
+            var positions = 12;
+            var currentPosition = 1;
+
+            var chart = document.querySelector('chart');
+
+            document.querySelector('button').onclick = () => {
+                
+                chart.classList.remove('position-' + currentPosition);
+                
+                currentPosition = (currentPosition == 12) 
+                    ? 1 
+                    : currentPosition + 1;
+                
+                chart.classList.add('position-' + currentPosition);
+            }
         }
 
         function createUser(loc: any) {

@@ -1,0 +1,231 @@
+﻿body { 
+    background-color: #434343;
+    margin-top: 64px;
+}
+
+$color-1: #181819;
+$color-2: #569486;
+$color-3: #5ec0ad;
+
+@mixin ring($circumference) {
+
+    width: $circumference;
+    height: $circumference;
+    border-radius: $circumference / 2;
+    display: block;
+    position: fixed;
+}
+
+@mixin sector($sections) {
+	@for $i from 1 through $sections { 
+		$step: (360 / $sections);
+		&:nth-child(#{$i}) {
+			transform: rotate(0deg + (($i - 1) * $step));
+		}
+	}
+}
+
+@mixin positions() {
+	@for $i from 1 through 12 { 
+		$step: (360 / 12);
+		
+		&.position-#{$i} {
+			chart-major, 
+			chart-minor, 
+			chart-diminished {
+				$pos: 0deg + (($i - 1) * $step);
+				transform: rotate($pos);
+			}	
+		}		
+	}
+}
+
+container {
+    width: 100%;
+    display: flex;
+    align-content: center;
+    justify-content: center;
+
+	button { 
+		height: 60px;
+		width: 60px;
+		font-size: 32px;
+		background: $color-1;
+		border: 2px solid $color-2;
+		color: $color-3;
+		border-radius: 100%;
+		display: inline-block;
+		margin-top: 270px;
+		z-index: 100;
+		padding: 10px;
+		font-family: consolas;
+		font-weight: bold;
+		padding-left: 13px;
+		outline: 0;
+		
+		&:hover {
+			background: darken($color-2, 40%);
+			cursor: pointer;
+		}
+	}
+	
+    circle {
+        @include ring(600px);
+        background-color: #181819;
+
+		mask-outer {
+			@include ring(600px);
+			display: none;
+			background: #434343;
+			margin-top: 240px;
+		}
+
+		mask-inner {
+			@include ring(300px);
+
+			background: #434343;
+			margin-left: 150px;
+			margin-top: 150px;
+		}
+
+		chord {
+			text-align: center;
+			font-size: 26px;
+			color: white;
+			font-family: sans-serif;
+			line-height: 50px;
+			
+			
+			sup {
+				position: absolute;
+				top: -6px;
+				margin-left: 2px;
+			}
+			
+			sub { 
+				top: 19px;
+				position: absolute;
+				font-size: 14px;
+				line-height: 22px;
+				margin-left: 2px
+				
+			}
+			
+			sup + sub {				
+				margin-left: 14px;
+			}
+		}
+
+		ring-diminished {
+			@include ring(600px);
+			background: $color-1; 
+		}
+		
+		chart {
+			@include positions();
+			
+			chart-major, chart-minor, chart-diminished {
+				transition: all 0.3s linear;
+			}
+			chart-major {
+				transition-delay: 0.04s;
+			} 
+			chart-minor {
+				transition-delay: 0.06s;
+			}
+			
+			chart-diminished {
+				transition-delay: 0.08s;
+			}
+		}
+		
+		chart-diminished {
+			@include ring(600px);
+
+			chord {
+				@include ring(600px);
+				@include sector(12);
+			}
+		 }
+		
+		chart-minor {
+			@include ring(500px);
+			margin-top: 50px;
+			margin-left: 50px;
+
+			chord {
+				@include ring(500px);
+				@include sector(24);
+			}
+		 }
+		
+		chart-major {
+			@include ring(400px);
+			margin-top: 100px;
+			margin-left: 100px;
+			
+			chord {
+				@include ring(400px);
+				@include sector(12);
+			}
+		 }
+
+        overlay-diminished {
+
+            @include ring(600px);		
+
+            mask {
+                @include ring(600px);
+                clip: rect(0px, 300px, 300px, 0px);
+                opacity: 1;
+
+                &:nth-child(2) {
+                    transform: rotate(8deg);
+                    background: lighten($color-1, 20%)
+                }
+
+                &:nth-child(3) {
+                    background: $color-1;
+                    transform: rotate(-8deg);
+                }
+            }
+        }
+
+        ring-minor {
+            @include ring(500px);
+            margin-top: 50px;
+            margin-left: 50px;      
+            background: $color-2;      
+        }
+		
+		 overlay-minor {
+			 margin-left: 50px;
+			 margin-top: 50px;
+
+            @include ring(500px);		
+
+            mask {
+                @include ring(500px);
+                clip: rect(0px, 250px, 250px, 0px);
+                opacity: 1;
+
+                &:nth-child(2) {
+                    transform: rotate(22deg);
+                    background: lighten($color-2, 10%)
+                }
+
+                &:nth-child(3) {
+                    background: $color-2;
+                    transform: rotate(-22deg);
+                }
+            }
+        }
+
+        ring-major {
+            @include ring(400px);
+            margin-top: 100px;
+            margin-left: 100px;
+            background: $color-3;
+        }
+    }  
+}
