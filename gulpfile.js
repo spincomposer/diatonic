@@ -11,15 +11,23 @@ var gutil = require('gulp-util');
 var tsify = require('tsify');
 // var ts = require('gulp-typescript');
 
+var sass = require('gulp-sass');
+
 // var tsProject = ts.createProject('tsconfig.json');
 
 gulp.task('default', function () {
+
      // set up the browserify instance on a task basis
     var b = browserify({
-        entries: './scripts/index.ts',
+        entries: './ts/index.ts',
         extensions: ['.ts'],
         debug: true  // exorcist: "app.js.map > index.ts"
     });
+
+    gulp.src('./sass/**/*.scss')
+        .pipe(sass().on('error', sass.logError))
+        .pipe(gulp.dest('./www/css'));
+
 
     return b.plugin(tsify, { noImplicitAny: true }).bundle()
       .pipe(source('app.js'))
@@ -29,5 +37,5 @@ gulp.task('default', function () {
           //.pipe(uglify())
           //.on('error', gutil.log)
       .pipe(sourcemaps.write('./', { includeContent:false, sourceRoot:'../../' }))
-      .pipe(gulp.dest('./www/scripts/'));
+      .pipe(gulp.dest('./www/js/'));
 });
