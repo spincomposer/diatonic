@@ -1,11 +1,9 @@
-﻿body { 
-    background-color: #434343;
-    margin-top: 64px;
-}
-
+﻿$color-0: #434343;
 $color-1: #181819;
 $color-2: #569486;
 $color-3: #5ec0ad;
+
+body { background-color: $color-0; margin: 20px 0 0 0; }
 
 @mixin ring($circumference) {
 
@@ -27,19 +25,25 @@ $color-3: #5ec0ad;
 
 @mixin positions() {
 
+	$step: (360 / 12);
 	@for $i from 1 through 12 {
-		
-		$step: (360 / 12);
-		
-		&.position-#{$i} {
-			chart-major, 
-			chart-minor, 
-			chart-diminished {
-				$pos: 0deg + (($i - 1) * $step);
-				transform: rotate($pos);
-			}	
-		}		
+
+		$angle: 0deg + (($i - 1) * $step);
+		@include position($i, $step, $angle);
 	}
+
+	// Buffer zones
+	@include position(0, $step, -30deg);
+	@include position(13, $step, 30deg);
+}
+
+@mixin position($i, $step, $angle) {
+
+	&.position-#{$i} {
+		chart-major, chart-minor, chart-diminished {
+			transform: rotate($angle);
+		}	
+	}	
 }
 
 container {
@@ -48,36 +52,39 @@ container {
     align-content: center;
     justify-content: center;
 
+
 	button { 
-		height: 60px;
-		width: 60px;
-		font-size: 32px;
+		height: 48px;
+		width: 48px;
+		font-size: 30px;
 		background: $color-1;
 		border: 2px solid $color-2;
 		color: $color-3;
 		border-radius: 100%;
 		display: inline-block;
-		margin-top: 270px;
+		// margin-top: 270px;
 		z-index: 100;
-		padding: 10px;
+		padding: 6px;
 		font-family: consolas;
 		font-weight: bold;
-		padding-left: 13px;
+		
 		outline: 0;
 		
 		&:hover {
 			background: darken($color-2, 40%);
 			cursor: pointer;
 		}
-	}
-	
+
+		&.left, &.right { margin-top: 12px; }
+		&.right { margin-left: 224px; }
+	}	
+
     circle {
         @include ring(600px);
         background-color: #181819;
 
 		mask-outer {
 			@include ring(600px);
-			display: none;
 			background: #434343;
 			margin-top: 240px;
 		}
@@ -126,18 +133,20 @@ container {
 		chart {
 			@include positions();
 			
-			chart-major, chart-minor, chart-diminished {
-				transition: all 0.3s linear;
-			}
-			chart-major {
-				transition-delay: 0.04s;
-			} 
-			chart-minor {
-				transition-delay: 0.06s;
-			}
-			
-			chart-diminished {
-				transition-delay: 0.08s;
+			&.animate {
+
+				chart-major, chart-minor, chart-diminished {
+					transition: all 0.3s linear;
+				}
+				chart-major {
+					transition-delay: 0.04s;
+				} 
+				chart-minor {
+					transition-delay: 0.06s;
+				}				
+				chart-diminished {
+					transition-delay: 0.08s;
+				}
 			}
 		}
 		
@@ -230,4 +239,25 @@ container {
             background: $color-3;
         }
     }  
+
+	overlay-main {
+
+		@include ring(600px);		
+
+		mask {
+			@include ring(600px);
+			clip: rect(0px, 300px, 300px, 0px);
+			opacity: 1;
+
+			&:nth-child(1) {
+				transform: rotate(-36deg);
+				background: $color-0;
+			}
+
+			&:nth-child(2) {
+				transform: rotate(126deg);
+				background: $color-0;
+			}
+		}
+	}
 }

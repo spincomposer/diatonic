@@ -1,6 +1,6 @@
 body {
   background-color: #434343;
-  margin-top: 64px; }
+  margin: 20px 0 0 0; }
 
 container {
   width: 100%;
@@ -8,24 +8,26 @@ container {
   align-content: center;
   justify-content: center; }
   container button {
-    height: 60px;
-    width: 60px;
-    font-size: 32px;
+    height: 48px;
+    width: 48px;
+    font-size: 30px;
     background: #181819;
     border: 2px solid #569486;
     color: #5ec0ad;
     border-radius: 100%;
     display: inline-block;
-    margin-top: 270px;
     z-index: 100;
-    padding: 10px;
+    padding: 6px;
     font-family: consolas;
     font-weight: bold;
-    padding-left: 13px;
     outline: 0; }
     container button:hover {
       background: #0b1311;
       cursor: pointer; }
+    container button.left, container button.right {
+      margin-top: 12px; }
+    container button.right {
+      margin-left: 224px; }
   container circle {
     width: 600px;
     height: 600px;
@@ -39,7 +41,6 @@ container {
       border-radius: 300px;
       display: block;
       position: fixed;
-      display: none;
       background: #434343;
       margin-top: 240px; }
     container circle mask-inner {
@@ -76,61 +77,41 @@ container {
       display: block;
       position: fixed;
       background: #181819; }
-    container circle chart.position-1 chart-major,
-    container circle chart.position-1 chart-minor,
-    container circle chart.position-1 chart-diminished {
+    container circle chart.position-1 chart-major, container circle chart.position-1 chart-minor, container circle chart.position-1 chart-diminished {
       transform: rotate(0deg); }
-    container circle chart.position-2 chart-major,
-    container circle chart.position-2 chart-minor,
-    container circle chart.position-2 chart-diminished {
+    container circle chart.position-2 chart-major, container circle chart.position-2 chart-minor, container circle chart.position-2 chart-diminished {
       transform: rotate(30deg); }
-    container circle chart.position-3 chart-major,
-    container circle chart.position-3 chart-minor,
-    container circle chart.position-3 chart-diminished {
+    container circle chart.position-3 chart-major, container circle chart.position-3 chart-minor, container circle chart.position-3 chart-diminished {
       transform: rotate(60deg); }
-    container circle chart.position-4 chart-major,
-    container circle chart.position-4 chart-minor,
-    container circle chart.position-4 chart-diminished {
+    container circle chart.position-4 chart-major, container circle chart.position-4 chart-minor, container circle chart.position-4 chart-diminished {
       transform: rotate(90deg); }
-    container circle chart.position-5 chart-major,
-    container circle chart.position-5 chart-minor,
-    container circle chart.position-5 chart-diminished {
+    container circle chart.position-5 chart-major, container circle chart.position-5 chart-minor, container circle chart.position-5 chart-diminished {
       transform: rotate(120deg); }
-    container circle chart.position-6 chart-major,
-    container circle chart.position-6 chart-minor,
-    container circle chart.position-6 chart-diminished {
+    container circle chart.position-6 chart-major, container circle chart.position-6 chart-minor, container circle chart.position-6 chart-diminished {
       transform: rotate(150deg); }
-    container circle chart.position-7 chart-major,
-    container circle chart.position-7 chart-minor,
-    container circle chart.position-7 chart-diminished {
+    container circle chart.position-7 chart-major, container circle chart.position-7 chart-minor, container circle chart.position-7 chart-diminished {
       transform: rotate(180deg); }
-    container circle chart.position-8 chart-major,
-    container circle chart.position-8 chart-minor,
-    container circle chart.position-8 chart-diminished {
+    container circle chart.position-8 chart-major, container circle chart.position-8 chart-minor, container circle chart.position-8 chart-diminished {
       transform: rotate(210deg); }
-    container circle chart.position-9 chart-major,
-    container circle chart.position-9 chart-minor,
-    container circle chart.position-9 chart-diminished {
+    container circle chart.position-9 chart-major, container circle chart.position-9 chart-minor, container circle chart.position-9 chart-diminished {
       transform: rotate(240deg); }
-    container circle chart.position-10 chart-major,
-    container circle chart.position-10 chart-minor,
-    container circle chart.position-10 chart-diminished {
+    container circle chart.position-10 chart-major, container circle chart.position-10 chart-minor, container circle chart.position-10 chart-diminished {
       transform: rotate(270deg); }
-    container circle chart.position-11 chart-major,
-    container circle chart.position-11 chart-minor,
-    container circle chart.position-11 chart-diminished {
+    container circle chart.position-11 chart-major, container circle chart.position-11 chart-minor, container circle chart.position-11 chart-diminished {
       transform: rotate(300deg); }
-    container circle chart.position-12 chart-major,
-    container circle chart.position-12 chart-minor,
-    container circle chart.position-12 chart-diminished {
+    container circle chart.position-12 chart-major, container circle chart.position-12 chart-minor, container circle chart.position-12 chart-diminished {
       transform: rotate(330deg); }
-    container circle chart chart-major, container circle chart chart-minor, container circle chart chart-diminished {
+    container circle chart.position-0 chart-major, container circle chart.position-0 chart-minor, container circle chart.position-0 chart-diminished {
+      transform: rotate(-30deg); }
+    container circle chart.position-13 chart-major, container circle chart.position-13 chart-minor, container circle chart.position-13 chart-diminished {
+      transform: rotate(30deg); }
+    container circle chart.animate chart-major, container circle chart.animate chart-minor, container circle chart.animate chart-diminished {
       transition: all 0.3s linear; }
-    container circle chart chart-major {
+    container circle chart.animate chart-major {
       transition-delay: 0.04s; }
-    container circle chart chart-minor {
+    container circle chart.animate chart-minor {
       transition-delay: 0.06s; }
-    container circle chart chart-diminished {
+    container circle chart.animate chart-diminished {
       transition-delay: 0.08s; }
     container circle chart-diminished {
       width: 600px;
@@ -328,3 +309,23 @@ container {
       margin-top: 100px;
       margin-left: 100px;
       background: #5ec0ad; }
+  container overlay-main {
+    width: 600px;
+    height: 600px;
+    border-radius: 300px;
+    display: block;
+    position: fixed; }
+    container overlay-main mask {
+      width: 600px;
+      height: 600px;
+      border-radius: 300px;
+      display: block;
+      position: fixed;
+      clip: rect(0px, 300px, 300px, 0px);
+      opacity: 1; }
+      container overlay-main mask:nth-child(1) {
+        transform: rotate(-36deg);
+        background: #434343; }
+      container overlay-main mask:nth-child(2) {
+        transform: rotate(126deg);
+        background: #434343; }
