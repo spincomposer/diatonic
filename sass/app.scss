@@ -26,14 +26,17 @@ body { background-color: $color-0; margin: 20px 0 0 0; }
 @mixin positions() {
 
 	$step: (360 / 12);
+
+	// Buffer zone
+	@include position(0, $step, -30deg);
+
 	@for $i from 1 through 12 {
 
 		$angle: 0deg + (($i - 1) * $step);
 		@include position($i, $step, $angle);
 	}
 
-	// Buffer zones
-	@include position(0, $step, -30deg);
+	// Buffer zone
 	@include position(13, $step, 30deg);
 }
 
@@ -46,28 +49,50 @@ body { background-color: $color-0; margin: 20px 0 0 0; }
 	}	
 }
 
+@mixin mask($circumference, $rotation, $background) {
+	
+	mask {
+		@include ring($circumference);
+		
+		$clip: $circumference / 2;
+		clip: rect(0px, $clip, $clip, 0px);
+		opacity: 1;
+
+		&:nth-child(2) {
+			background: lighten($background, 10%);
+			transform: rotate($rotation);
+		}
+
+		&:nth-child(3) {
+			background: $background;
+			transform: rotate($rotation * -1);
+		}
+	}
+}
+
+@mixin margin($px) {
+	
+	margin-top: $px;
+	margin-left: $px;
+}
+
 container {
     width: 100%;
     display: flex;
     align-content: center;
     justify-content: center;
 
-
 	button { 
+		display: inline-block;
 		height: 48px;
 		width: 48px;
-		font-size: 30px;
-		background: $color-1;
-		border: 2px solid $color-2;
-		color: $color-3;
-		border-radius: 100%;
-		display: inline-block;
-		// margin-top: 270px;
-		z-index: 100;
 		padding: 6px;
-		font-family: consolas;
-		font-weight: bold;
-		
+		font: 30px bold consolas;
+		border: 2px solid $color-2;
+		border-radius: 100%;
+		background: $color-1;
+		color: $color-3;
+		z-index: 100;
 		outline: 0;
 		
 		&:hover {
@@ -79,169 +104,7 @@ container {
 		&.right { margin-left: 224px; }
 	}	
 
-    circle {
-        @include ring(600px);
-        background-color: #181819;
-
-		mask-outer {
-			@include ring(600px);
-			background: #434343;
-			margin-top: 240px;
-		}
-
-		mask-inner {
-			@include ring(300px);
-
-			background: #434343;
-			margin-left: 150px;
-			margin-top: 150px;
-		}
-
-		chord {
-			text-align: center;
-			font-size: 26px;
-			color: white;
-			font-family: sans-serif;
-			line-height: 50px;
-			
-			
-			sup {
-				position: absolute;
-				top: -6px;
-				margin-left: 2px;
-			}
-			
-			sub { 
-				top: 19px;
-				position: absolute;
-				font-size: 14px;
-				line-height: 22px;
-				margin-left: 2px
-				
-			}
-			
-			sup + sub {				
-				margin-left: 14px;
-			}
-		}
-
-		ring-diminished {
-			@include ring(600px);
-			background: $color-1; 
-		}
-		
-		chart {
-			@include positions();
-			
-			&.animate {
-
-				chart-major, chart-minor, chart-diminished {
-					transition: all 0.3s linear;
-				}
-				chart-major {
-					transition-delay: 0.04s;
-				} 
-				chart-minor {
-					transition-delay: 0.06s;
-				}				
-				chart-diminished {
-					transition-delay: 0.08s;
-				}
-			}
-		}
-		
-		chart-diminished {
-			@include ring(600px);
-
-			chord {
-				@include ring(600px);
-				@include sector(12);
-			}
-		 }
-		
-		chart-minor {
-			@include ring(500px);
-			margin-top: 50px;
-			margin-left: 50px;
-
-			chord {
-				@include ring(500px);
-				@include sector(24);
-			}
-		 }
-		
-		chart-major {
-			@include ring(400px);
-			margin-top: 100px;
-			margin-left: 100px;
-			
-			chord {
-				@include ring(400px);
-				@include sector(12);
-			}
-		 }
-
-        overlay-diminished {
-
-            @include ring(600px);		
-
-            mask {
-                @include ring(600px);
-                clip: rect(0px, 300px, 300px, 0px);
-                opacity: 1;
-
-                &:nth-child(2) {
-                    transform: rotate(8deg);
-                    background: lighten($color-1, 20%)
-                }
-
-                &:nth-child(3) {
-                    background: $color-1;
-                    transform: rotate(-8deg);
-                }
-            }
-        }
-
-        ring-minor {
-            @include ring(500px);
-            margin-top: 50px;
-            margin-left: 50px;      
-            background: $color-2;      
-        }
-		
-		 overlay-minor {
-			 margin-left: 50px;
-			 margin-top: 50px;
-
-            @include ring(500px);		
-
-            mask {
-                @include ring(500px);
-                clip: rect(0px, 250px, 250px, 0px);
-                opacity: 1;
-
-                &:nth-child(2) {
-                    transform: rotate(22deg);
-                    background: lighten($color-2, 10%)
-                }
-
-                &:nth-child(3) {
-                    background: $color-2;
-                    transform: rotate(-22deg);
-                }
-            }
-        }
-
-        ring-major {
-            @include ring(400px);
-            margin-top: 100px;
-            margin-left: 100px;
-            background: $color-3;
-        }
-    }  
-
 	overlay-main {
-
 		@include ring(600px);		
 
 		mask {
@@ -260,4 +123,113 @@ container {
 			}
 		}
 	}
+
+    circle {
+    	@include ring(600px);
+        background-color: #181819;
+
+		mask-outer {
+			@include ring(600px);
+			background: #434343;
+			margin-top: 240px;
+		}
+
+		mask-inner {
+			@include ring(300px);
+			@include margin(150px);
+
+			background: #434343;
+		}
+
+		chart {
+			@include positions();
+			
+			&.animate {
+
+				chart-major, chart-minor, chart-diminished { transition: all 0.3s linear; }
+				chart-major { transition-delay: 0.02s; }
+				chart-minor { transition-delay: 0.04s; }
+				chart-diminished { transition-delay: 0.06s;	}
+			}
+		}
+
+		chord {
+			font: 26px/50px sans-serif;
+			text-align: center;
+			color: #fff;
+			
+			sup, sub { 
+				position: absolute;
+				margin-left: 2px
+			}
+
+			sup { top: -6px; }
+			
+			sub { 
+				top: 19px;
+				font-size: 14px;
+				line-height: 22px;
+			}
+			
+			sup + sub {	margin-left: 14px; }
+		}
+
+        ring-major {
+            @include ring(400px);
+			@include margin(100px);
+            background: $color-3;
+        }
+   		
+		ring-minor {
+            @include ring(500px);
+            @include margin(50px);      
+            background: $color-2;      
+        }
+		
+		ring-diminished {
+			@include ring(600px);
+			background: $color-1; 
+		}
+		
+		overlay-minor {
+        	@include ring(500px);		
+			@include margin(50px);
+			@include mask(500px, 22deg, $color-2);
+        }
+
+        overlay-diminished {
+            @include ring(600px);		
+			@include mask(600px, 8deg, $color-1);
+        }
+
+		chart-major {
+			@include ring(400px);
+			margin-top: 100px;
+			margin-left: 100px;
+			
+			chord {
+				@include ring(400px);
+				@include sector(12);
+			}
+	 	}
+		
+		chart-minor {
+			@include ring(500px);
+			@include margin(50px);
+
+			chord {
+				@include ring(500px);
+				@include sector(24);
+			}
+		}
+		
+		chart-diminished {
+			@include ring(600px);
+
+			chord {
+				@include ring(600px);
+				@include sector(12);
+			}
+		}	
+    } 
 }
