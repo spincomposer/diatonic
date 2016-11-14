@@ -121,7 +121,6 @@ var Diatonic;
     Diatonic.App = App;
     window.onload = function () { App.initialize(); };
 })(Diatonic = exports.Diatonic || (exports.Diatonic = {}));
-
 },{}]},{},[1])
 
 
