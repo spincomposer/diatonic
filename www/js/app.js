@@ -1,13 +1,13 @@
 (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
 var Diatonic;
 (function (Diatonic) {
-    var SwipeDirection;
     (function (SwipeDirection) {
         SwipeDirection[SwipeDirection["UP"] = 0] = "UP";
         SwipeDirection[SwipeDirection["DOWN"] = 1] = "DOWN";
         SwipeDirection[SwipeDirection["LEFT"] = 2] = "LEFT";
         SwipeDirection[SwipeDirection["RIGHT"] = 3] = "RIGHT";
-    })(SwipeDirection || (SwipeDirection = {}));
+    })(Diatonic.SwipeDirection || (Diatonic.SwipeDirection = {}));
+    var SwipeDirection = Diatonic.SwipeDirection;
     var TouchController = (function () {
         function TouchController() {
         }
@@ -62,6 +62,7 @@ var Diatonic;
         Wheel.init = function () {
             Wheel.chart = document.querySelector('chart');
             Wheel.chart.classList.add('animate');
+            Wheel.chart.addEventListener('transitionend', Wheel.reset);
         };
         Wheel.reset = function () {
             Wheel.animate = false;
@@ -75,6 +76,9 @@ var Diatonic;
             switch (direction) {
                 case SwipeDirection.LEFT:
                     if (Wheel.currentPosition == 1) {
+                        Wheel.animate = false;
+                        Wheel.chart.classList.add('position-0');
+                        Wheel.animate = true;
                         Wheel.currentPosition = 12;
                     }
                     else {
@@ -83,6 +87,9 @@ var Diatonic;
                     break;
                 case SwipeDirection.RIGHT:
                     if (Wheel.currentPosition == 12) {
+                        Wheel.animate = false;
+                        Wheel.chart.classList.add('position-13');
+                        Wheel.animate = true;
                         Wheel.currentPosition = 1;
                     }
                     else {
@@ -119,7 +126,7 @@ var Diatonic;
         return App;
     })();
     Diatonic.App = App;
-    window.onload = function () { App.initialize(); };
+    window.onload = function () { App.initialize(); window.Diatonic = Diatonic; };
 })(Diatonic = exports.Diatonic || (exports.Diatonic = {}));
 
 },{}]},{},[1])
