@@ -43,11 +43,40 @@ body { background-color: $color-0; margin: 20px 0 0 0; }
 @mixin position($i, $step, $angle) {
 
 	&.position-#{$i} {
+
 		chart-major, chart-minor, chart-diminished {
 			transform: rotate($angle);
-		}	
-	}	
+		}
+
+		chart-diminished {
+			@if $i == 1 { 
+				chord:nth-last-child(12) { opacity: 1; } 
+			}
+			@else { 
+				$x: $i - 1;
+				chord:nth-last-child(#{$x}) { opacity: 1; } 
+			}			
+		}
+
+		chart-minor {		
+			@if $i == 1 { 
+				chord:nth-last-child(24),
+				chord:nth-last-child(23),
+				chord:nth-last-child(1) { opacity: 1; }
+			}
+			@else { 
+				$ii: $i * 2;
+				$x: $ii - 1;
+				$y: $ii - 2;
+				$z: $ii - 3;
+				chord:nth-last-child(#{$x}),
+				chord:nth-last-child(#{$y}), 
+				chord:nth-last-child(#{$z}) { opacity: 1; }
+			}
+		}
+	}
 }
+
 
 @mixin mask($circumference, $rotation, $background) {
 	
@@ -135,7 +164,7 @@ container {
 	}	
 
 	overlay-main {
-		@include ring(600px);		
+		@include ring(600px);
 
 		mask {
 			@include ring(600px);
@@ -184,9 +213,11 @@ container {
 		}
 
 		chord {
-			font: 26px/50px sans-serif;
+			font: 22px/50px sans-serif;
 			text-align: center;
 			color: #fff;
+			opacity: 0.2;
+			transition: 0.2s linear opacity;
 			
 			sup, sub { 
 				position: absolute;
@@ -197,7 +228,7 @@ container {
 			
 			sub { 
 				top: 19px;
-				font-size: 14px;
+				font-size: 12px;
 				line-height: 22px;
 			}
 			
@@ -240,6 +271,7 @@ container {
 			chord {
 				@include ring(400px);
 				@include sector(12);
+				opacity: 1;
 			}
 	 	}
 		

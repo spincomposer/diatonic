@@ -1,6 +1,11 @@
-﻿export namespace Diatonic {
+﻿interface WindowX extends Window {
+    Diatonic?: any;
+}
 
-    enum SwipeDirection { UP, DOWN, LEFT, RIGHT }
+
+export namespace Diatonic {
+
+    export enum SwipeDirection { UP, DOWN, LEFT, RIGHT }
 
     export class TouchController {
        
@@ -73,7 +78,7 @@
             Wheel.chart = <HTMLElement>document.querySelector('chart');
             Wheel.chart.classList.add('animate');
 
-            //Wheel.chart.addEventListener('transitionend', Wheel.reset);
+            Wheel.chart.addEventListener('transitionend', Wheel.reset);
         }
 
         public static reset() {
@@ -96,9 +101,9 @@
 
                     if (Wheel.currentPosition == 1) {
 
-                        // Wheel.animate = false;
-                        // Wheel.chart.classList.add('position-0');
-                        // Wheel.animate = true;
+                        Wheel.animate = false;
+                        Wheel.chart.classList.add('position-0');
+                        Wheel.animate = true;
 
                         Wheel.currentPosition = 12;
                     }
@@ -112,9 +117,9 @@
 
                     if (Wheel.currentPosition == 12) {
 
-                        // Wheel.animate = false;
-                        // Wheel.chart.classList.add('position-13');
-                        // Wheel.animate = true;
+                        Wheel.animate = false;
+                        Wheel.chart.classList.add('position-13');
+                        Wheel.animate = true;
 
                         Wheel.currentPosition = 1;
                     }
@@ -160,5 +165,5 @@
         }
     }
 
-    window.onload = () => { App.initialize(); }
+    window.onload = () => { App.initialize(); (<WindowX>window).Diatonic = Diatonic; }
 }
