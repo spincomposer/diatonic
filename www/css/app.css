@@ -7,21 +7,21 @@ body {
   width: 100%;
   position: relative; }
   #logo .d {
-    background-image: url("/images/d.png"); }
+    background-image: url("../images/d.png"); }
   #logo .i {
-    background-image: url("/images/i.png"); }
+    background-image: url("../images/i.png"); }
   #logo .a {
-    background-image: url("/images/a.png"); }
+    background-image: url("../images/a.png"); }
   #logo .t {
-    background-image: url("/images/t.png"); }
+    background-image: url("../images/t.png"); }
   #logo .o {
-    background-image: url("/images/o.png"); }
+    background-image: url("../images/o.png"); }
   #logo .n {
-    background-image: url("/images/n.png"); }
+    background-image: url("../images/n.png"); }
   #logo .j {
-    background-image: url("/images/j.png"); }
+    background-image: url("../images/j.png"); }
   #logo .c {
-    background-image: url("/images/c.png"); }
+    background-image: url("../images/c.png"); }
   #logo span {
     position: absolute;
     left: 0;

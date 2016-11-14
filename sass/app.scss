@@ -109,7 +109,7 @@ body { background-color: $color-0; margin: 40px 0 0 0; }
 @mixin logo-image() {
 	@each $x in d,i,a,t,o,n,j,c {
 		.#{$x} {
-			background-image:url('/images/#{$x}.png');
+			background-image:url('../images/#{$x}.png');
 		}
 	}
 }
